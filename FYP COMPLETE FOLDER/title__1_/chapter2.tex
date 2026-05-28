@@ -1,0 +1,106 @@
+\chapter{Literature Review} \label{chap:literatureReview}
+
+%\version{v1.10.2015}
+
+The second chapter provides an in depth review of recent research related to AI-based mental
+health support, Speech Emotion Recognition (SER), and applications of Virtual Reality (VR) in
+therapeutic contexts. This is highlighting the main methods, datasets used, and results of more then 20 scholarly
+articles published primarily between 2021 and 2025. Our main and primary focus is on exploring the
+feasibility, accuracy, and integration of speech emotion recognition and VR to improve mental
+health interventions.
+
+\section{Speech Emotion Recognition (SER)}
+Speech Emotion Recognition (SER) has emerged as an essential component of AI-based mental health applications. Researchers have increasingly shifted from traditional acoustic feature extraction to advanced Transformer-based models to capture subtle emotional senses in voice input.
+
+Wang et al. (2024)~\cite{wang2024hierarchical} proposed a Hierarchical Transformer with Shifted Windows (HTSW) that outperformed previous CNN-based SER models, achieving high accuracy on the IEMOCAP dataset. Tang et al. (2024)~\cite{tang2024cnn} combined CNNs with Transformer architecture to develop a multidimensional attention-based SER model, improving generalization across diverse emotional tones. Wang et al. (2023)~\cite{wang2023tf} applied time-frequency joint learning techniques for more refined SER performance.
+
+Li et al. (2024)~\cite{li2024multi} is introducing a Multi-Scale Temporal Transformer network, refining temporal emotion modeling with the attention heads at multiple scales. Hasan et al. (2025)~\cite{hasan2025hybrid} used a hybrid Transformer and CNN model for multilingual SER applications. This allows cross lingual emotion detection. Zaidi et al. (2023)~\cite{zaidi2023multimodal} developed a multimodal dual attention network to handle variations in the speech patterns across different languages.
+
+Al-onazi et al. (2022)~\cite{alonazi2022fusion} has proposed a data augmentation and deep feature fusion methods for SER. This will boost Transformer based performance on the MSP-Podcast corpus. These mentioned studies confirms that Transformer and hybrid Transformer-CNN models delivers superior performances for emotion detection compared to traditional models.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\caption{Key Studies in Speech Emotion Recognition (SER)}
+\label{tab:ser}
+\begin{tabular}{|p{0.25\linewidth}|p{0.1\linewidth}|p{0.55\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{Author(s)} & \textbf{Year} & \textbf{Contribution / Methodology} \\ \hline
+Wang et al. & 2024 & Hierarchical Transformer with Shifted Windows (HTSW). \\ \hline
+Tang et al. & 2024 & Hybrid CNN + Transformer for multidimensional attention. \\ \hline
+Wang et al. & 2023 & Time-frequency joint learning for fine-grained SER. \\ \hline
+Li et al. & 2024 & Multi-Scale Temporal Transformer for emotion modeling. \\ \hline
+Hasan et al. & 2025 & Hybrid Transformer-CNN for multilingual SER. \\ \hline
+Zaidi et al. & 2023 & Multimodal dual attention network for cross-language SER. \\ \hline
+Al-onazi et al. & 2022 & Feature fusion and data augmentation for MSP-Podcast. \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Virtual Reality (VR) in Mental Health}
+VR therapy is being adopted for various mental health conditions. This offers 3D environments that traditional therapy cannot easily replicate.
+
+Ionescu et al. (2021)~\cite{ionescu2021review} conducted a systematic review of VR simulations in mental health. He finds positive outcomes in stress and anxiety treatments. Hatta et al. (2022)~\cite{hatta2022review} focused mainly on VR for COVID-19-related mental stress, showing significant decreases in anxiety levels.
+
+Cieślik et al. (2023)~\cite{cieslik2023immersive} performed a review of VR technologies used for depression care, highlighting the effectiveness of exposure based simulations. Wang et al. (2023)~\cite{wang2023depression} conducted an analysis indicating a growing trend in VR usage for both depression and anxiety treatments. Marzaleh et al. (2022)~\cite{marzaleh2022rehab} reviewed VR for post-COVID rehabilitation and found that VR simulations can improve both psychological and physical health outcomes.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\caption{Key VR Studies for Mental Health}
+\label{tab:vr}
+\begin{tabular}{|p{0.25\linewidth}|p{0.1\linewidth}|p{0.55\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{Author(s)} & \textbf{Year} & \textbf{Focus / Methodology} \\ \hline
+Ionescu et al. & 2021 & Systematic review of $360^{\circ}$ video for anxiety. \\ \hline
+Hatta et al. & 2022 & VR interventions for COVID-19 stress reduction. \\ \hline
+Cieślik et al. & 2023 & Immersive VR for depression therapy. \\ \hline
+Wang et al. & 2023 & Bibliometric analysis of VR trends for anxiety. \\ \hline
+Marzaleh et al. & 2022 & VR for post-COVID physical and psychological rehab. \\ \hline
+\end{tabular}
+\end{table}
+
+\section{AI and VR Integration Systems}
+The combo of both Artificial Intelligence and Virtual Reality represents the frontier of digital mental health. Wang et al. (2024)~\cite{wang2024aging} analyzed the acceptance of AI+VR systems among older adults. This indicates promising adaptation rates. Gaggioli et al. (2022)~\cite{gaggioli2022emotional} validated an intervention involving VR combined with AI for emotional support. Sharma et al. (2022)~\cite{sharma2022empathetic} proposed an AI chatbot designed for empathic conversation. This is tested in conjunction with the VR environments.
+
+Inkster et al. (2018)~\cite{inkster2018ai} evaluated an AI chatbot for mental health support. He reports high user satisfaction. Li (2023)~\cite{li2023lstm} applied LSTM networks for the identification of depression patterns in elderly users. Liang et al. (2022)~\cite{liang2022cnn} showed that CNN-based models are effective in assessing mental health risks from users given speech.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\caption{AI and ML Applications in Mental Health}
+\label{tab:ai_ml}
+\begin{tabular}{|p{0.25\linewidth}|p{0.1\linewidth}|p{0.55\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{Author(s)} & \textbf{Year} & \textbf{Application / Methodology} \\ \hline
+Gaggioli et al. & 2022 & Integrated VR + AI chatbot for emotional support. \\ \hline
+Sharma et al. & 2022 & Empathic conversational agents in VR. \\ \hline
+Inkster et al. & 2018 & Text-based AI chatbot evaluation for mental health. \\ \hline
+Li & 2023 & LSTM networks for depression pattern recognition. \\ \hline
+Liang et al. & 2022 & CNN-based stress detection from speech. \\ \hline
+\end{tabular}
+\end{table}
+\newpage
+\section{Simulation and Behavioral Modeling Studies}
+Simulation techniques help optimize interventions and predict patient outcomes. Huang et al. (2021)~\cite{huang2021abm} applied agent-based modeling (ABM) to simulate smoking cessation interventions. Okoli et al. (2022)~\cite{okoli2022sdm} used system dynamics modeling for depression treatment pathways. Chatterjee et al. (2022)~\cite{chatterjee2022des} employed discrete-event simulations to optimize crisis counseling. Gollwitzer et al. (2021)~\cite{gollwitzer2021behavior} explored mental simulation's role in behavior change, establishing a cognitive basis for simulation therapy.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\caption{Simulation and Behavioral Modeling Studies}
+\label{tab:sim}
+\begin{tabular}{|p{0.25\linewidth}|p{0.1\linewidth}|p{0.55\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{Author(s)} & \textbf{Year} & \textbf{Methodology / Context} \\ \hline
+Huang et al. & 2021 & Agent-based modeling for cessation interventions. \\ \hline
+Okoli et al. & 2022 & System dynamics for depression treatment pathways. \\ \hline
+Chatterjee et al. & 2022 & Discrete-event simulation to optimize counseling. \\ \hline
+Gollwitzer et al. & 2021 & Behavioral study on mental simulation mechanisms. \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Summary}
+The reviewed literature confirms the efficacy of both SER and VR in mental health care. Transformer-based models have proved good over traditional approaches in emotion recognition, w immersive VR simulations have proved effective for therapeutic interventions across diverse demographics. Simulation studies justified the integration of behavioral modeling into such systems. Most existing research studies each technology in isolation. This highlights the critical need for a unified system that integrates real time, AI driven speech emotion recognition with adaptive VR environments the core focus of our project.

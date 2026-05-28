@@ -1,0 +1,49 @@
+\chapter{Conclusions}
+\label{chap:conclusions}
+
+%\version{v1.10.2015}
+
+\section*{}
+The project’s conclusions summarise the key outcomes, lessons learned, and potential directions for further development. 
+
+\section{Overview of the Developed System}
+
+We have successfully developed a complete AI-powered virtual reality therapy system that provides mental health support in a fully immersive and private environment. The platform combines several specialised AI models with carefully designed VR simulations to deliver personalised, automated therapeutic sessions.
+
+Users interact entirely through natural speech inside the VR environment. Audio is transcribed in real time using Whisper, and the resulting text is handled by a fine-tuned Mistral-7B model acting as an empathetic conversational agent. The conversation is then analysed by a BERT-based emotion and behaviour tagger, followed by a T5-Large model that produces a structured clinical summary and infers the user’s likely psychological state. Based on this analysis, an appropriate VR relaxation or exposure scenario is automatically selected and presented. Finally, a custom convolutional neural network evaluates the user’s post-session textual feedback and assigns a quantitative effectiveness score (0–1).
+
+\section{System Architecture and Implementation}
+
+As described in Chapter 4, a modular client–server architecture was adopted: Unity provides the immersive front-end, while a Python/FastAPI backend orchestrates the AI components and manages database operations.
+
+Chapter 5 detailed the hardware and software configuration required to run multiple large language models simultaneously. All models were fine-tuned on task-specific datasets to achieve the necessary performance and safety characteristics. Chapter 6 presented comprehensive testing results, including unit tests, integration tests, and full end-to-end evaluation of the VR platform, confirming the reliability of every major workflow from user registration to final report generation.
+
+\section{Key Achievements}
+
+The main successes of the project include:
+
+\begin{itemize}
+    \item Successful integration of four distinct AI models (Mistral-7B, BERT, T5-Large, and a custom CNN) into a single, coherent processing pipeline.
+    \item Demonstration of fully autonomous therapeutic sessions requiring no human intervention once initiated.
+    \item Implementation of an explainable AI pipeline through emotion/behaviour tagging and structured summarisation, making clinical decision-making transparent.
+    \item Robust functional performance across all core components, validated through extensive testing.
+    \item Creation of a safe, stigma-free therapeutic environment that early testers consistently described as comfortable and private.
+\end{itemize}
+
+\section{Limitations}
+
+Several limitations remain. Latency can increase under high server load, speech recognition accuracy varies with accent and background noise, and the effectiveness scoring model, although useful, is relatively simple. Most importantly, the system has not yet undergone formal clinical validation and should be regarded as a research prototype rather than a clinical tool.
+
+\section{Future Work}
+
+The current prototype provides a solid foundation for several important extensions:
+
+\begin{enumerate}
+    \item Optimisation of the models for standalone VR headsets (e.g., Meta Quest 3) through quantisation and streamed inference.
+    \item Incorporation of physiological sensors (heart rate, galvanic skin response) and prosodic audio features to enrich emotion recognition.
+    \item Real-time adaptation of the conversational agent and simulation parameters based on detected emotional state.
+    \item Application of reinforcement learning to improve long-term personalisation using post-session effectiveness scores.
+    \item Controlled clinical trials in collaboration with mental health professionals to establish safety and efficacy.
+    \item Development of additional therapeutic modules, including graded exposure scenarios and cognitive-behavioural exercises.
+    \item Strengthening of security measures and full compliance with relevant health data regulations (GDPR, HIPAA).
+\end{enumerate}

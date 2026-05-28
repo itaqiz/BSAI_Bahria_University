@@ -1,0 +1,171 @@
+%% BUICS THESIS STYLE for LaTeX2e
+%%
+%% badwanpk, Tue March 10 18:53:15 2015
+%%
+%% PLEASE send improvements to badwanpk at bui dot edu dot pk
+%%
+%%========================================
+%% Commands: pdflatex tese
+%%           bibtex tese
+%%           makeindex tese (only if creating an index) 
+%%           pdflatex tese
+%%========================================
+
+\documentclass[11pt,a4paper,oneside,openright]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+%\usepackage[portuges]{babel}
+\usepackage{fancyvrb}
+\usepackage{multirow}
+%\usepackage{epstopdf}
+\usepackage{rotating}
+\usepackage{slashbox,pict2e}
+\usepackage{soul}
+\usepackage{amssymb}
+\usepackage{lscape}
+\usepackage{longtable}
+\usepackage{makeidx}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage[table]{xcolor}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{shapes, arrows, positioning, shadows}
+
+
+%% For the final version, comment next line and uncomment the second line
+%\usepackage[provisional,alpharefs]{buics}
+\usepackage[numericrefs]{buics} %alpharefs
+
+ %PDF properties 
+\hypersetup{
+pdftitle = {AI-Powered VR Therapy for Mental Health},
+pdfauthor = {Muhammad Taqui, Babar Ali},
+pdfsubject={Bachelor Thesis},
+pdfcreator={MiKTex 2.9},
+pdfproducer={MiKTex 2.9},
+pdfkeywords = {AI, VR, Mental Health, Therapy},
+pdfinfo={
+    AuthorNameEnrollment1={Muhammad Taqui (01-136221-021)},
+    AuthorNameEnrollment2={Babar Ali (01-136221-051)},
+    Supervisor={Ms. Nabia Khalid},
+    CoSupervisor={},
+    Session={Fall 2025},
+    InternalExaminer={},
+    ExternalExaminer={},
+    ProjectCoordinator={},
+    HOD={},
+    DefenseDate={\today},
+  }
+}
+
+%% Provide a version number
+\version{v1.12.2025}
+%\noversiontrue % uncomment in final version
+
+%% uncomment to create an index (at the end of the document)
+\makeindex 
+
+%% path to the figures directory
+\graphicspath{{figures/}}
+
+%% Include custom macros
+\include{mymacros}
+
+%%========================================
+%% Start of document
+%%========================================
+\begin{document}
+
+%%----------------------------------------
+%% Information about the work
+%%----------------------------------------
+\title{AI-Powered VR Therapy for Mental Health}
+
+\author{{\sc Muhammad Taqui}\\01-136221-021\\
+{\sc Babar Ali}\\01-136221-051
+}
+
+\degree{\textbf{\Large{Bachelor of Science in Artificial Intelligence}}}
+
+\department{Department of Computer Sciences\\Bahria University, Islamabad}
+\thesisdate{December 2025}
+
+%% Supervisor / Co-Supervisor
+\supervisor{Supervisor}{Ms. Nabia Khalid}{}% {(Title)}
+
+
+%% Committee / Certificate
+\certificatetext{We accept the work contained in the report titled ``AI-Powered VR Therapy for Mental Health'', written by Muhammad Taqui and Babar Ali as a confirmation to the required standard for the partial fulfillment of the degree of Bachelor of Science in Artificial Intelligence.}
+
+\committeetext{Approved by:}
+
+\committeemember{Supervisor}{Ms. Nabia Khalid}{}
+\signature
+\committeemember{Internal Examiner}{}{ } % Fill
+\signature
+\committeemember{External Examiner}{}{ } % Fill
+\signature
+\committeemember{Project Coordinator}{}{ } % Fill
+\signature
+\committeemember{Head of the Department}{}{ } % Fill
+\signature
+
+%% Cover logo
+\logo{figures/BUI-LOGO.jpg}
+
+%%----------------------------------------
+%% Cover page(s)
+%%----------------------------------------
+\maketitle
+\committeepage
+
+%% Preliminary materials
+\StartPrelim
+\begin{singlespace}
+  \include{abstract} % the abstract
+  \include{acknows}  % the acknowledgments
+  \cleardoublepage
+  \pdfbookmark[0]{Table of Contents}{contents}
+  \tableofcontents
+  \cleardoublepage
+  \pdfbookmark[0]{List of Figures}{figures}
+  \listoffigures
+  \cleardoublepage
+  \pdfbookmark[0]{List of Tables}{tables}
+  \listoftables
+  \include{abbrevs}  % the list of abbreviations used
+\end{singlespace}
+
+%%----------------------------------------
+%% Body
+%%----------------------------------------
+\StartBody
+
+\include{chapter1} 
+\include{chapter2}
+\include{chapter3}
+\include{chapter4}
+\include{chapter5}
+\include{chapter6}
+\include{chapter7}
+
+
+%%----------------------------------------
+%% Final materials
+%%----------------------------------------
+\begin{singlespace}
+  %% Bibliography
+  \PrintBib{references}
+
+  %% Index
+  \PrintIndex
+\end{singlespace}
+
+\end{document}

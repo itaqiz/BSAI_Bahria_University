@@ -1,0 +1,13 @@
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+In this project we are developing an AI powered Virtual Reality (VR) therapy system for mental health support. The system combines Unity-based VR environments with a voice-based AI assistant that listens to the user, detects emotions from given input and responds with simulations. Depending on how stressed or anxious the user sounds, the system chooses and loads suitable relaxation simulation.
+
+The backend uses Python with Mistral-7B (fine-tuned with LoRA) for conversation, BERT for emotion classification, T5 for response generation, and a custom Text-CNN to score user feedback. Real-time speech-to-text and sentiment analysis make the sessions personalized.
+
+Special attention was given to user privacy (no data stored), safety mechanisms (emergency exit,
+session time limits), and simple interface so that even people with no technical background can
+use it comfortably.
+
+The result is an affordable, private, and always available mental health tool that can help reduce
+stigma and reach users who avoid traditional therapy.

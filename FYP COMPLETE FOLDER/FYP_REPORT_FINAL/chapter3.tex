@@ -1,0 +1,321 @@
+\chapter{Requirement Specifications} 
+\label{chap:reqs}
+
+%\version{v1.10.2015}
+
+This chapter gives a breakdown of the functional and non-functional requirements governing the AI powered VR therapy system. It translates the objectives defined in Chapter 1 into technical specs. Chapter is structured to guide the development process, starting with specific functional behaviors required for user interaction and AI processing, followed by the quality attributes (non-functional requirements) that ensure system stability and performance. It mentions the hardware and software prerequisites and also user interactions through use cases.
+
+\section{Proposed System}
+Our proposed solution operates as a multi-stage pipeline that transforms the raw voice input into a tailored VR output. The workflow begins when the user enters in the VR environment and speaks to the system. The audio is captured and transcribed into the text via \textbf{OpenAI Whisper API}. The text is processed by a \textbf{Mistral-7B Instruct model} (fine-tuned with LoRA), which generates a context based response that is converted back to speech using \textbf{ElevenLabs TTS}. After the session is ciompleted the system initiates a background analysis phase. The conversation transcript is first processed by a \textbf{BERT-based Auto-Tagger} to assign relevant labels. An \textbf{AI Analyzer (T5-Large)} examines this tagged data to determine the specific condition and its underlying cause.The system generates an Explainable AI (XAI) summary explaining the diagnosis. At end the \textbf{DeepSeek} model synthesizes all this information to recommend a specific therapy simulation. The VR then loads the recommended simulation. After the whole experience, a short Q\&A session records user feedback, which is scored by a custom \textbf{CNN model} for measuring improvement.
+
+\section{Requirement Specifications}
+
+\subsection{Functional Requirements}
+Functional requirements are those that specify the behaviors and functions that the system must support to deliver value to end-user. These requirements are tied to specific AI models just like Mistral-7B and T5. This ensures that every action is backed by a technical capability.
+\subsubsection{Core System \& User Interaction Requirements}
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.05}
+\caption{Core System and Interaction Requirements}
+\label{tab:func-core}
+\begin{tabular}{|p{0.09\linewidth}|p{0.78\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{ID} & \textbf{Description} \\ \hline
+FR-01 & The system must provide a seamless supporting voice authentication or a virtual VR keyboard. \\ \hline
+FR-02 & The system must implement real time audio capture, streaming user voice data from the VR headset to the backend server via secure WebRTC protocols. \\ \hline
+FR-03 & The system must store improvement history. \\ \hline
+FR-04 & The system must enforce strict rolebased access control (RBAC), restricting administrative and system level privileges. \\ \hline
+\end{tabular}
+\end{table}
+
+\subsubsection{AI \& Data Analysis Requirements}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{Artificial Intelligence and Data Analysis Requirements}
+\label{tab:func-ai}
+\begin{tabular}{|p{0.1\linewidth}|p{0.85\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{ID} & \textbf{Description} \\ \hline
+FR-05 & The system must utilize the \textbf{OpenAI Whisper API} to transcribe user speech into text with handling accents and pauses. \\ \hline
+FR-06 & The system must employ a locally hosted \textbf{Mistral-7B Instruct} model (LoRA fine tuned) to generate safe responses. \\ \hline
+FR-07 & The system must integrate a \textbf{BERT-based Auto-Tagger} to classify the user's emotional state (e.g., Anxiety, Stress) \\ \hline
+FR-08 & The system must use a \textbf{T5-Large} model to perform deep semantic analysis, identifying root causes of distress. \\ \hline
+FR-09 & The system must generate an XAI summary providing users with a natural language explanation of recommendations. \\ \hline
+FR-10 & The system must deploy a custom \textbf{Text CNN} to analyze post session feedback and calculate an improvement score (0-1). \\ \hline
+\end{tabular}
+\end{table}
+
+
+\subsection{Non-Functional Requirements}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{Non-Functional Requirements}
+\label{tab:non-functional-req}
+\begin{tabular}{|p{0.1\linewidth}|p{0.85\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{ID} & \textbf{Description} \\ \hline
+NFR-01 & \textbf{Latency:} Total latency from user speech to AI response must be less to maintain presence. \\ \hline
+NFR-02 & \textbf{Privacy:} Raw audio must be processed in volatile memory only anonymized transcripts are stored in MongoDB. \\ \hline
+NFR-03 & \textbf{Performance:} Inference must utilize CUDA-enabled GPU acceleration to run concurrent models without bottlenecks. \\ \hline
+NFR-04 & \textbf{Comfort:} The VR application must maintain a stable frame rate of at least 72 FPS to prevent motion sickness. \\ \hline
+NFR-05 & \textbf{Reliability:} The system must gracefully degrade to "Safe Mode" if external APIs become unavailable. \\ \hline
+NFR-06 & \textbf{Scalability:} The backend must be containerized to allow independent scaling of microservices. \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Hardware Requirements}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{Server-Side Hardware Requirements (AI Inference)}
+\label{tab:hardware-server-req}
+\begin{tabular}{|p{0.25\linewidth}|p{0.7\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{Component} & \textbf{Specification} \\ \hline
+\textbf{GPU} & NVIDIA A100 (40GB+) or RTX 4090 (24GB) strictly required for model inference. \\ \hline
+\textbf{CPU} & 16-Core Processor for concurrent requests. \\ \hline
+\textbf{RAM} & 64GB DDR5 System Memory (Min. 24GB reserved for models). \\ \hline
+\textbf{Storage} & 512GB NVMe SSD for fast model loading. \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{Client-Side Hardware Requirements (User)}
+\label{tab:hardware-client-req}
+\begin{tabular}{|p{0.25\linewidth}|p{0.7\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{Component} & \textbf{Specification} \\ \hline
+\textbf{VR Headset} & Standalone (Meta Quest 2/3) or PC tethered headset with 6DoF tracking. \\ \hline
+\textbf{Network} & Stable broadband connection for audio streaming. \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Software Requirements}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{Software and Library Requirements}
+\label{tab:software-req}
+\begin{tabular}{|p{0.25\linewidth}|p{0.7\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{Category} & \textbf{Technology/Tool} \\ \hline
+\textbf{Operating System} & Ubuntu 22.04 LTS (Server); Android/Windows (Client) \\ \hline
+\textbf{VR Engine} & Unity 3D (2021.3 LTS+) with OpenXR \\ \hline
+\textbf{Backend API} & FastAPI (Python 3.10+), Node.js \\ \hline
+\textbf{AI Frameworks} & PyTorch 2.0+, Hugging Face Transformers, BitsAndBytes \\ \hline
+\textbf{Database} & MongoDB (NoSQL), Redis \\ \hline
+\textbf{External APIs} & OpenAI Whisper, DeepSeek, ElevenLabs \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Use Case Diagrams}
+
+\subsection{User Interaction Diagram}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[every node/.style={font=\small}, node distance=2cm, auto]
+    % Styles
+    \tikzstyle{usecase} = [ellipse, draw=blue!50, fill=blue!5, thick, text width=3cm, text centered, minimum height=1.2cm]
+    \tikzstyle{actor} = [circle, draw=black, thick, minimum size=1cm, fill=gray!10, text centered, font=\footnotesize\bfseries]
+
+    % Actor
+    \node[actor] (user) at (0,0) {User};
+
+    % Use cases placed around actor
+    \node[usecase] (UC1) at (0,3.5) {UC-01: Registration \& Login};
+    \node[usecase] (UC2) at (4,2) {UC-02: AI Conversation};
+    \node[usecase] (UC9) at (0,-3.5) {UC-09: Provide Feedback};
+    \node[usecase] (UC8) at (-4,-2) {UC-08: Exit Session};
+
+    % Connections
+    \draw[->, thick] (user) -- (UC1);
+    \draw[->, thick] (user) -- (UC2);
+    \draw[->, thick] (user) -- (UC9);
+    \draw[->, thick] (user) -- (UC8);
+\end{tikzpicture}
+\caption{User-Centric Use Case Diagram}
+\label{fig:use-case-user}
+\end{figure}
+
+\subsection{Admin \& System Interaction Diagram}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[every node/.style={font=\small}, node distance=2cm, auto]
+    % Styles
+    \tikzstyle{usecase} = [ellipse, draw=green!50, fill=green!5, thick, text width=3.2cm, text centered, minimum height=1.2cm]
+    \tikzstyle{actor} = [circle, draw=black, thick, minimum size=1cm, fill=gray!10, text centered, font=\footnotesize\bfseries]
+
+    % Actor
+    \node[actor] (admin) at (0,0) {Admin};
+
+    % Use cases around admin
+    \node[usecase] (UC11) at (4,2) {UC-11: Emergency Escalation};
+    \node[usecase] (UC10) at (4,-2) {UC-10: Calculate Improvement Score};
+    \node[usecase] (UC4) at (0,-3.5) {UC-04: Generate XAI Summary};
+
+    % Connections from admin
+    \draw[->, thick] (admin) -- (UC11);
+    \draw[->, thick] (admin) -- (UC10);
+    \draw[->, thick] (admin) -- (UC4);
+
+\end{tikzpicture}
+\caption{Admin and System-Internal Use Case Diagram}
+\label{fig:use-case-admin}
+\end{figure}
+
+\section{Use Case Descriptions}
+
+% Include all UC tables exactly as given in original content:
+% UC-01 to UC-11 (all details unchanged)
+
+% UC-01
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{UC-01: User Registration \& Login}
+\label{tab:uc01}
+\begin{tabular}{|p{0.25\linewidth}|p{0.7\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{Field} & \textbf{Details} \\ \hline
+\textbf{Use Case ID} & UC-01 \\ \hline
+\textbf{Description} & Allows a user to log in to access therapy sessions. \\ \hline
+\textbf{Actors} & User \\ \hline
+\textbf{Preconditions} & System is online and connected to the database. \\ \hline
+\textbf{Postconditions} & User is authenticated and session data is linked to their ID. \\ \hline
+\textbf{Flow of Events} & 1. User opens VR app. \newline 2. System prompts credentials. \newline 3. User enters data. \newline 4. System validates and logs in. \\ \hline
+\end{tabular}
+\end{table}
+
+% UC-02
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{UC-02: Conversational AI Interaction}
+\label{tab:uc02}
+\begin{tabular}{|p{0.25\linewidth}|p{0.7\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{Field} & \textbf{Details} \\ \hline
+\textbf{Use Case ID} & UC-02 \\ \hline
+\textbf{Description} & User speaks to the AI assistant, which responds via voice using the LLM pipeline. \\ \hline
+\textbf{Actors} & User, Mistral-7B Agent \\ \hline
+\textbf{Preconditions} & Session started, headset mic active. \\ \hline
+\textbf{Postconditions} & User receives audio response. \\ \hline
+\textbf{Flow of Events} & 1. User speaks. \newline 2. Whisper transcribes audio. \newline 3. Mistral generates response. \newline 4. TTS plays audio. \\ \hline
+\end{tabular}
+\end{table}
+
+% UC-03
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{UC-03: Emotional Analysis \& Tagging}
+\label{tab:uc03}
+\begin{tabular}{|p{0.25\linewidth}|p{0.7\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{Field} & \textbf{Details} \\ \hline
+\textbf{Use Case ID} & UC-03 \\ \hline
+\textbf{Description} & The system analyzes the conversation log to detect and tag emotional states. \\ \hline
+\textbf{Actors} & System (BERT Auto-Tagger) \\ \hline
+\textbf{Preconditions} & Transcript available. \\ \hline
+\textbf{Postconditions} & Transcript tagged . \\ \hline
+\textbf{Flow of Events} & 1. Aggregate logs. \newline 2. BERT processes text. \newline 3. Calculate scores. \newline 4. Assign tags. \\ \hline
+\end{tabular}
+\end{table}
+
+% UC-04
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{UC-04: Root Cause \& XAI Generation}
+\label{tab:uc04}
+\begin{tabular}{|p{0.25\linewidth}|p{0.7\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{Field} & \textbf{Details} \\ \hline
+\textbf{Use Case ID} & UC-04 \\ \hline
+\textbf{Description} & Generates a natural language summary explaining why the user is stressed. \\ \hline
+\textbf{Actors} & System (T5 Analyzer) \\ \hline
+\textbf{Preconditions} & Transcript successfully tagged. \\ \hline
+\textbf{Postconditions} & Summary generated. \\ \hline
+\textbf{Flow of Events} & 1. T5 receives transcript/tags. \newline 2. Identifies causal links. \newline 3. Generates XAI string. \\ \hline
+\end{tabular}
+\end{table}
+
+% UC-05
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{UC-05: Exit Session Anytime}
+\label{tab:uc08}
+\begin{tabular}{|p{0.25\linewidth}|p{0.7\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{Field} & \textbf{Details} \\ \hline
+\textbf{Use Case ID} & UC-05 \\ \hline
+\textbf{Description} & Safety feature allowing user to quit immediately. \\ \hline
+\textbf{Actors} & User \\ \hline
+\textbf{Preconditions} & Session running. \\ \hline
+\textbf{Postconditions} & VR environment closes immediately. \\ \hline
+\textbf{Flow of Events} & 1. User says "Stop". \newline 2. System halts rendering. \newline 3. User returned to lobby. \\ \hline
+\end{tabular}
+\end{table}
+
+% UC-06
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{UC-06: Provide Session Feedback}
+\label{tab:uc09}
+\begin{tabular}{|p{0.25\linewidth}|p{0.7\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{Field} & \textbf{Details} \\ \hline
+\textbf{Use Case ID} & UC-06 \\ \hline
+\textbf{Description} & User answers questions to validate improvement. \\ \hline
+\textbf{Actors} & User \\ \hline
+\textbf{Preconditions} & Simulation ended. \\ \hline
+\textbf{Postconditions} & Feedback recorded. \\ \hline
+\textbf{Flow of Events} & 1. System asks "Do you feel better?". \newline 2. User responds. \newline 3. Response stored. \\ \hline
+\end{tabular}
+\end{table}
+
+% UC-07
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{UC-07: Calculate Improvement Score}
+\label{tab:uc10}
+\begin{tabular}{|p{0.25\linewidth}|p{0.7\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{Field} & \textbf{Details} \\ \hline
+\textbf{Use Case ID} & UC-07 \\ \hline
+\textbf{Description} & Quantifies effectiveness of the session. \\ \hline
+\textbf{Actors} & System (Custom CNN) \\ \hline
+\textbf{Preconditions} & Feedback available. \\ \hline
+\textbf{Postconditions} & Score (0-1) assigned. \\ \hline
+\textbf{Flow of Events} & 1. CNN processes text. \newline 2. Regression output determined. \newline 3. Score stored in DB. \\ \hline
+\end{tabular}
+\end{table}
+
+% UC-08
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{UC-08: Emergency Escalation}
+\label{tab:uc11}
+\begin{tabular}{|p{0.25\linewidth}|p{0.7\linewidth}|}
+\hline
+\rowcolor{gray!15} \textbf{Field} & \textbf{Details} \\ \hline
+\textbf{Use Case ID} & UC-08 \\ \hline
+\textbf{Description} & Safety protocol for severe distress. \\ \hline
+\textbf{Actors} & System \\ \hline
+\textbf{Preconditions} & High-risk keywords detected. \\ \hline
+\textbf{Postconditions} & User advised to seek help. \\ \hline
+\textbf{Flow of Events} & 1. AI detects risk tags. \newline 2. Therapy flow overridden. \newline 3. Warning message displayed. \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Summary}
+This chapter has all the system requirements for our project AI powered VR therapy platform. Functional Requirements are outlining the system’s end to end workflow. From user registration to conversation, emotional analysis, and VR simulationA. Non Functional Requirements highlighting the critical attributes such as low latency and data privacy etc. Hardware and Software Requirements are defined for both server and client sides. Its ensuring the optimal performance and good VR experiences. Fully Detailed Use Cases are mapping the user and admin interactions. It demonstrates how the system uses AI models (Whisper, Mistral, BERT, T5, DeepSeek) to deliver response.
